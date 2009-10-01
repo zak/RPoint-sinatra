@@ -22,7 +22,7 @@ get '/about' do
 end
 
 get '/courses' do
-  @courses = Courses.all
+  @courses = Course.all
   haml :'courses/index'
 end
 
@@ -31,19 +31,19 @@ get '/course' do
 end
 
 post '/course' do
-  course = Courses.new
+  course = Course.new
   course.attributes = params #refactored it
   course.save!
   redirect course.permalink
 end
 
 get '/:course' do
-  @course = Courses.first(:permalink => params[:course])
+  @course = Course.first(:permalink => params[:course])
   haml :'courses/show'
 end
 
 get '/:course/del' do
-  Courses.first(:permalink => params[:course]).destroy
+  Course.first(:permalink => params[:course]).destroy
   redirect '/'
 end
 
@@ -58,6 +58,6 @@ get '/:course/:lecture/:user' do
 end
 
 get '/' do
-  @user = Users.first.login
+  @user = User.first.login
   haml :index
 end

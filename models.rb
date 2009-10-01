@@ -9,7 +9,7 @@ end
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/../rpoint.db")
 
-class Users
+class User
   include DataMapper::Resource
   
   property :id, Serial
@@ -21,64 +21,82 @@ class Users
   property :token_expires_at, DateTime
   property :created_at, DateTime
   property :updated_at, DateTime
+  
+  has n, :courses
+  has n, :fieldworks
 end
 
-class Courses
+class Course
   include DataMapper::Resource
   
   property :id, Serial
-  property :author_id, Integer
   property :title, String, :length => 0..255
-  property :permalink, String, :length => 0..225, :key => true
+  property :permalink, String, :length => 0..225
   property :state, String, :length => 0..255
   property :teaser, Text
   property :description, Text
   property :created_at, DateTime
   property :updated_at, DateTime
+  
+  belongs_to :user
+  
+  has n, :lectures
 end
 
-class Lectures
+class Lecture
   include DataMapper::Resource
   
   property :id, Serial
   property :number, Integer 
   property :subjest, String, :length => 0..255
-  property :course_id, Integer
   property :content, Text
   property :fieldwork, Text
   property :created_at, DateTime
   property :updated_at, DateTime
+  
+  belongs_to :course
+  
+  has n, :theses
+  has n, :fieldworks
 end
 
-class Theses
+class Thesis
   include DataMapper::Resource
   
   property :id, Serial
-  property :lecture_id, Integer
   property :content, Text
   property :appraisal, String, :length => 0..255
+  
+  belongs_to :lecture
+  
+  has n, :appraisals
 end
 
-class Fieldworks
+class Fieldwork
   include DataMapper::Resource
   
   property :id, Serial
-  property :lecture_id, Integer
-  property :pupil_id, Integer
   property :description, Text
+  
+  belongs_to :lecture
+  belongs_to :user
+  
+  has n, :appraisals
 end
 
-class Appraisals
+class Appraisal
   include DataMapper::Resource
   
   property :id, Serial
   property :mark, String, :length => 0..255
-  property :thesis_id, Integer
-  property :fieldwork_id, Integer
+  
+  belongs_to :thesis
+  belongs_to :fieldwork
 end
 
 def install
   DataMapper.auto_migrate!
   
-  Users.new(:login => 'admin', :password => '123456').save!
+  User.new(:login => 'admin', :password => '123456').save!
+  Course.new(:title => 'Тестовый', :permalink => 'test', :description => 'Не очень длинный текст, а хотелось больше!', :user_id => 1).save!
 end
