@@ -1,0 +1,16 @@
+#content
+  %h2 Создание нового курса
+  %form{ :name => 'add', :method => 'post', :action => '/course'}
+    %ul
+      %li
+        %label{ :for => 'title' } Название
+        %input{ :name => 'title', :type => 'text' }
+      %li
+        %label{ :for => 'permalink' } Линк
+        %input{ :name => 'permalink', :type => 'text' }
+      %li
+        %label{ :for => 'description' } Описание
+        %textarea{ :name => 'description'}
+      %li.submit
+        %input{ :type => 'submit', :value => 'Добавить' }
+        %a{ :href => '/' } Отмена

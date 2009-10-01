@@ -1,0 +1,4 @@
+#content
+  %ul
+  - @courses.each do |course|
+    %a{ :href => course.permalink }= course.title

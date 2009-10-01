@@ -29,7 +29,8 @@ class Courses
   property :id, Serial
   property :author_id, Integer
   property :title, String, :length => 0..255
-  property :permalink, String, :length => 0..225
+  property :permalink, String, :length => 0..225, :key => true
+  property :state, String, :length => 0..255
   property :teaser, Text
   property :description, Text
   property :created_at, DateTime
@@ -55,7 +56,7 @@ class Theses
   property :id, Serial
   property :lecture_id, Integer
   property :content, Text
-  property :appraisal, String, :lenght => 0..255
+  property :appraisal, String, :length => 0..255
 end
 
 class Fieldworks
@@ -71,7 +72,7 @@ class Appraisals
   include DataMapper::Resource
   
   property :id, Serial
-  property :mark, String, :lenght => 0..255
+  property :mark, String, :length => 0..255
   property :thesis_id, Integer
   property :fieldwork_id, Integer
 end
