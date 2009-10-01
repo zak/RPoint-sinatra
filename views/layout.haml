@@ -1,0 +1,21 @@
+!!!
+%html{ :xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'ru', :lang => 'ru' }    
+  %head
+    %title= "RPoint"
+    %meta{ :content => 'text/html; charset=utf-8', 'http-equiv' => 'Content-Type' }
+    %script{ :type => "text/javascript", :src => "/script.js"}
+    %link{ :rel => 'stylesheet', :href => '/style.css', :type => 'text/css'}
+  %body
+    #header
+      %h1= "RPoint"
+    #navigation
+      %div
+        %a{ :href => '/' } Главная
+        %a{ :href => '/courses' } Курсы
+        %a{ :href => '/about' } О нас
+    = yield
+    #footer
+      #info 
+        %a{ :href => '/rss.xml' } RSS
+        %span= "|"
+        %a{ :href => '/atom.xml' } Atom
