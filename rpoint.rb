@@ -7,6 +7,10 @@ helpers do
   
   alias_method :h, :escape_html
   
+  def protected!
+    
+  end
+  
   def redirect_to obj
     redirect 
   end
@@ -19,6 +23,28 @@ end
 
 get '/about' do
   haml :about
+end
+
+get '/signup' do
+  haml :signup
+end
+
+post '/signup' do
+  invite = Invite.first(:token => params[:invite])
+  if invite.nil?
+    @message = 'Пропуск ваш, не того образца.'
+  elsif invite.expires_at.to_time < Time.now
+    @message = 'Фу! Да он протух! Видете плесень на уголке!?'
+  elsif invite.value < 1
+    @message = 'В вашем пропуске дырочка лишняя'
+  else
+    invite.value -= 1
+    invite.save!
+    user = User.new(:login => params[:login], :email => params[:email], :password => '123456')
+    user.save!
+    @message = 'Ваш пасс - ' + user.password + ' И поменять его вы ене сможете ))'
+  end
+  haml :signuped
 end
 
 get '/courses' do

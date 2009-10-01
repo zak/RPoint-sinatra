@@ -24,6 +24,19 @@ class User
   
   has n, :courses
   has n, :fieldworks
+  has n, :invites
+end
+
+class Invite
+  include DataMapper::Resource
+  
+  property :id, Serial
+  property :token, String, :length => 0..255
+  property :value, Integer, :default  => 1
+  property :expires_at, DateTime
+  property :created_at, DateTime
+  
+  belongs_to :user
 end
 
 class Course
@@ -99,4 +112,6 @@ def install
   
   User.new(:login => 'admin', :password => '123456').save!
   Course.new(:title => 'Тестовый', :permalink => 'test', :description => 'Не очень длинный текст, а хотелось больше!', :user_id => 1).save!
+  Invite.new(:token => '123456789', :created_at => Time.now, :expires_at => (Time.now + 3600), :user_id => 1).save!
+  Invite.new(:token => '123', :created_at => (Time.now - 3600), :expires_at => (Time.now), :user_id => 1).save!
 end

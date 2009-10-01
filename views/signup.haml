@@ -1,0 +1,15 @@
+#content
+  %h2 Регистрация
+  %form{ :name => 'user', :method => 'post', :action => '/signup' }
+    %ul
+      %li
+        %label{ :for => 'login' } Логин
+        %input{ :type => 'text', :name => 'login' }
+      %li
+        %label{ :for => 'email' } Email
+        %input{ type => 'text', :name => 'email' }
+      %li
+        %label{ :for => 'invite' } Ваш пропуск
+        %input{ :type => 'text', :name => 'invite' }
+      %li.submit
+        %input{ :type => 'submit', :value => 'Пустите в нутрь!'}
