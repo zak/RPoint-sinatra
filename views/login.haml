@@ -1,0 +1,14 @@
+#content
+  %h2 Вход
+  - unless @message.nil?
+    #message= @message
+  %form{ :name => 'login', :method => 'post', :action => '/login' }
+    %ul
+      %li
+        %label{ :for => 'login' } Логин
+        %input{ :type => 'text', :name => 'login' }
+      %li
+        %label{ :for => 'password' } Пароль
+        %input{ :type => 'password', :name => 'password' }
+      %li.submit
+        %input{ :type => 'submit', :value => 'Пустите в нутрь!'}

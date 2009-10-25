@@ -1,0 +1,19 @@
+#content
+  %h2 Добавление новой лекции
+  %form{ :name => 'add', :method => 'post', :action => '/' + @course.permalink + '/lecture'}
+    %ul
+      %li
+        %label{ :for => 'subject' } Тема
+        %input{ :name => 'subject', :type => 'text' }
+      %li
+        %label{ :for => 'number' } Номер
+        %input{ :name => 'number', :type => 'text' }
+      %li
+        %label{ :for => 'content' } Лекция
+        %textarea{ :name => 'content'}
+      %li
+        %label{ :for => 'fieldwork' } Практическое задание
+        %textarea{ :name => 'fieldwork'}
+      %li.submit
+        %input{ :type => 'submit', :value => 'Добавить' }
+        %a{ :href => '/' + @course.permalink } Отмена

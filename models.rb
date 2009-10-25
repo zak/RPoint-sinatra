@@ -1,5 +1,6 @@
 require 'rubygems' 
 require 'datamapper'
+require 'usersystem'
 
 class DateTime
   def rfc822
@@ -9,7 +10,7 @@ end
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/../rpoint.db")
 
-class User
+class User < UserSystem::BasisUser
   include DataMapper::Resource
   
   property :id, Serial
@@ -25,6 +26,18 @@ class User
   has n, :courses
   has n, :fieldworks
   has n, :invites
+  has n, :sessions
+end
+
+class Session
+  include DataMapper::Resource
+  
+  property :id, Serial
+  property :token, String, :length => 0..15
+  property :expires_at, DateTime
+  property :ip, String, :length => 0..18
+  property :referer, String, :length => 0..255
+  belongs_to :user
 end
 
 class Invite
@@ -61,7 +74,7 @@ class Lecture
   
   property :id, Serial
   property :number, Integer 
-  property :subjest, String, :length => 0..255
+  property :subject, String, :length => 0..255
   property :content, Text
   property :fieldwork, Text
   property :created_at, DateTime
@@ -114,4 +127,6 @@ def install
   Course.new(:title => 'Тестовый', :permalink => 'test', :description => 'Не очень длинный текст, а хотелось больше!', :user_id => 1).save!
   Invite.new(:token => '123456789', :created_at => Time.now, :expires_at => (Time.now + 3600), :user_id => 1).save!
   Invite.new(:token => '123', :created_at => (Time.now - 3600), :expires_at => (Time.now), :user_id => 1).save!
+  Lecture.new(:number => 1, :subject => 'Первая лекция', :content => 'Сама теория припрвленная <b>кодом</b>', :fieldwork => 'Практическое задание', :course_id => 1).save!
+  Lecture.new(:number => 2, :subject => 'Вторая лекция', :content => 'Сама теория припрвленная <b>кодом</b>', :fieldwork => 'Практическое задание', :course_id => 1).save!
 end

@@ -1,3 +1,8 @@
 #content
   %h2= @course.title
   #text= @course.description
+  #lectures
+    %ul
+    - @course.lectures.each do |lecture|
+      %li
+        %a{ :href => '/'+@course.permalink+'/'+lecture.number.to_s}= lecture.subject

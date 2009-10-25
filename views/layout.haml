@@ -13,6 +13,8 @@
         %a{ :href => '/' } Главная
         %a{ :href => '/courses' } Курсы
         %a{ :href => '/about' } О нас
+        - unless @current_user.nil?
+          #login= @current_user.login
     = yield
     #footer
       #info 
