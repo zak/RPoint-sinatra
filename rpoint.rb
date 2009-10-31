@@ -8,13 +8,15 @@ helpers do
   
   alias_method :h, :escape_html
   
-  def protected!
-    
+  def back
+    request.referer
   end
    
-  def authenticat?
-    #@current_user = UserSystem::Guest.new if (token = request.cookies["token"]).nil? || (@current_user = Session.first(:token => token).user).nil?
-    #@current_user.tokeniz!
+  def logged_in?
+    !!(@current_user || authenticat_by_cookies)
+  end
+  
+  def authenticat_by_cookies
     @current_user = Session.first(:token => request.cookies["token"]).user unless request.cookies["token"].nil? || request.cookies["token"].empty?
   end
   
@@ -33,10 +35,28 @@ helpers do
     set_cookie("token", :value => @current_user.sessions.first.token, :expires => Time.now + 21600)
   end
   
+  def logout
+    @current_user.sessions.destroy if @current_user
+    delete_cookie("token")
+  end
+  
+  def authorized?(event)
+    logged_in? && accessed?(event) || access_denied
+  end
+  
+  def access_denied
+    haml :accessdenied
+  end
+  
+  def accessed?(event)
+    @current_user.accessed?(event)
+  end
+  
 end
 
 before do
-  authenticat?
+  logged_in?
+
   @test = request.path_info
   @path = request.path
   @query = request.query_string
@@ -86,6 +106,38 @@ post '/login' do
   end
 end
 
+get '/logout' do
+  logout
+  redirect '/'
+end
+
+get '/permissions' do
+  @permissions = Permission.all
+  @users = User.all
+  haml :'permissions/index'
+end
+
+post '/permissions' do
+  Permission.new(params).save!
+  redirect '/permissions'
+end
+
+get '/permissions/user/:login' do
+  @user = User.first(:login => params[:login])
+  @permissions = Permission.all
+  haml :'permissions/user'
+end
+
+get '/permissions/:permission' do
+  @permission = Permission.first(:event => params[:permission])
+  @users = User.all
+  haml :'permissions/permission'
+end
+
+post '/permission/add' do
+  Permit.new(params).save!
+  redirect request.referer
+end
 #-------------------
 # Курсы
 #-------------------

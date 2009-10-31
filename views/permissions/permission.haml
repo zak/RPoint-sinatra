@@ -1,0 +1,15 @@
+#content
+  %h2 Список обладетелей привелегией #{@permission.event}
+  %ul
+    - @permission.users.each do |user|
+      %li= user.login
+  %form{ :name => 'add', :method => 'post', :action => '/permission/add'}
+    %input{ :name => 'permission_id', :type => 'hidden', :value => @permission.id }
+    %ul
+      %li
+        %label{ :for => 'user_id' } Добавить привелегию пользователю
+        %select{ :name => 'user_id'}
+          - @users.each do |user|
+            %option{ :value => user.id }= user.login
+      %li.submit
+        %input{ :type => 'submit', :value => 'Добавить' }

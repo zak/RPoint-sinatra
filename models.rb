@@ -27,6 +27,29 @@ class User < UserSystem::BasisUser
   has n, :fieldworks
   has n, :invites
   has n, :sessions
+  
+  has n, :permits
+  has n, :permissions, :through => :permits
+end
+
+class Permit
+  include DataMapper::Resource
+  
+  property :id, Serial
+  
+  belongs_to :user
+  belongs_to :permission
+end
+
+class Permission
+  include DataMapper::Resource
+  
+  property :id, Serial
+  property :event, String, :length => 0..255
+  property :description, Text
+  
+  has n, :permits
+  has n, :users, :through => :permits  
 end
 
 class Session
@@ -37,6 +60,7 @@ class Session
   property :expires_at, DateTime
   property :ip, String, :length => 0..18
   property :referer, String, :length => 0..255
+  
   belongs_to :user
 end
 

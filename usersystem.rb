@@ -2,6 +2,9 @@ require 'digest/sha1'
 
 class UserSystem
   class BasisUser
+    def accessed?(event)
+      !!self.permissions.first(:event => event)
+    end
   end
   
   class Guest
