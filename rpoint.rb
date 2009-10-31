@@ -21,7 +21,7 @@ helpers do
   end
   
   def authenticat_by_password(user, password)
-    return false unless @current_user = User.first(:login => user, :password => password)
+    return false unless @current_user = User.first(:login => user, :password => UserSystem.encrypt(password))
     session_start!
     tokeniz!
     true
@@ -86,9 +86,10 @@ post '/signup' do
   else
     invite.value -= 1
     invite.save!
-    user = User.new(:login => params[:login], :email => params[:email], :password => '123456')
+    password = UserSystem.random_string(8)
+    user = User.new(:login => params[:login], :email => params[:email], :password => UserSystem.encrypt(password))
     user.save!
-    @message = 'Ваш пасс - ' + user.password + ' И поменять его вы ене сможете ))'
+    @message = 'Ваш пасс - ' + password + ' И поменять его вы не сможете ))'
   end
   haml :signuped
 end

@@ -1,5 +1,5 @@
 require 'rubygems' 
-require 'datamapper'
+require 'dm-core'
 require 'usersystem'
 
 class DateTime
@@ -12,6 +12,7 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/../rpoi
 
 class User < UserSystem::BasisUser
   include DataMapper::Resource
+
   
   property :id, Serial
   property :login, String, :length => 0..255
@@ -30,6 +31,10 @@ class User < UserSystem::BasisUser
   
   has n, :permits
   has n, :permissions, :through => :permits
+  
+  #before :save do 
+  #  self.password = UserSystem.encrypt(self.password) if self.id.nil?
+  #end
 end
 
 class Permit
