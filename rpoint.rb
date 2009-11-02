@@ -208,6 +208,7 @@ end
 
 # update course
 post '/:course' do
+  authorized?('course_edit')
   course = Course.first(:permalink => params[:course])
   course.update_attributes = params.merge(:updated_at => Time.now) #refactored it
   course.save!
@@ -217,6 +218,7 @@ end
 # TODO удалять выставляя статус
 # delete course
 get '/:course/del' do
+  authorized?('course_del')
   Course.first(:permalink => params[:course]).destroy
   redirect '/'
 end
@@ -227,24 +229,45 @@ end
 
 # add form
 get '/:course/lecture' do
+  authorized?('lecture_add')
   @course = Course.first(:permalink => params[:course])
   haml :'lectures/add'
 end
 
 # create lecture
 post '/:course/lecture' do
+  authorized?('lecture_add')
   @course = Course.first(:permalink => params[:course])
   lecture = Lecture.new(:course => @course, :subject => params[:subject], :number => params[:number], :content => params[:content], :fieldwork => params[:fieldwork], :created_at => Time.now)
   lecture.save!
   redirect '/' + @course.permalink
 end
 
+# read lecture
 get '/:course/:lecture' do
   @course = Course.first(:permalink => params[:course])
   @lecture = @course.lectures.first(:number => params[:lecture])
+  @fieldworks = @lecture.fieldworks(:user => @current_user)
   haml :'lectures/show'
 end
 
+# update lecture
+post '/:course/:lecture' do
+  @course = Course.first(:permalink => params[:course])
+  @lecture = @course.lectures.first(:number => params[:lecture])
+end
+
+# creat thesis
+post '/:course/:lecture/thesis' do
+  #authorized?("thesis_for_#{h params[:course]}")
+  authorized?("thesis_add")
+  @course = Course.first(:permalink => params[:course])
+  @lecture = @course.lectures.first(:number => params[:lecture])
+  @lecture.theses.new(:content => params[:content], :appraisal => params[:appraisal]).save!
+  redirect "/#{params[:course]}/#{params[:lecture]}"
+end
+
+# post fieldwork
 post '/:course/:lecture/fieldwork' do
   course = Course.first(:permalink => params[:course])
   lecture = course.lectures.first(:number => params[:lecture])
@@ -256,9 +279,25 @@ post '/:course/:lecture/fieldwork' do
   redirect '/' + params[:course] + '/' + params[:lecture]
 end
 
+# appraisal fieldwork
 get '/:course/:lecture/:user' do
-  @user = '/:course/:lecture/:user'
-  haml :index
+  authorized?('appraisal')
+  @course = Course.first(:permalink => params[:course])
+  @lecture = @course.lectures.first(:number => params[:lecture])
+  @user = User.first(:login => params[:user])
+  @fieldworks = @lecture.fieldworks(:user => @user)
+  haml :'lectures/appraisal'
+end
+
+# appraisal fieldwork
+post '/:course/:lecture/:user' do
+  authorized?('appraisal')
+  fieldwork = Fieldwork.first(:id => params[:fieldwork_id])
+  params[:marks].each do |thesis_id,mark|
+    thesis = Thesis.first(:id => thesis_id)
+    fieldwork.appraisals.new(:thesis => thesis, :mark => mark).save!
+  end
+  redirect "/#{params[:course]}/#{params[:lecture]}/#{params[:user]}"
 end
 
 get '/' do

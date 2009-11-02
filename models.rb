@@ -166,7 +166,7 @@ def install
     :permissions_edit => 'Редактирование привелегий'}.find_all do |event, description|
     p = Permission.new(:event => event, :description => description)
     p.save!
-    user.permissions += [p]
+    user.permissions << p
     user.save!
   end
   
