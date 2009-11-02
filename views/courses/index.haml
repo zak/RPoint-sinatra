@@ -1,4 +1,7 @@
 #content
+  - if accessed?('course_add')
+    %a{ :href => '/course' } Добавить новый курс
   %ul
-  - @courses.each do |course|
-    %a{ :href => course.permalink }= course.title
+    - @courses.each do |course|
+      %li
+        %a{ :href => course.permalink }= course.title

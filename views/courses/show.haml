@@ -2,7 +2,9 @@
   %h2= @course.title
   #text= @course.description
   #lectures
-    %ul
-    - @course.lectures.each do |lecture|
-      %li
-        %a{ :href => '/'+@course.permalink+'/'+lecture.number.to_s}= lecture.subject
+    %ol
+      - @course.lectures.each do |lecture|
+        %li
+          %a{ :href => '/'+@course.permalink+'/'+lecture.number.to_s }= lecture.subject
+    - if accessed?('lecture_add')
+      %a{ :href => '/'+@course.permalink+'/lecture' } Добавить новую лекцию

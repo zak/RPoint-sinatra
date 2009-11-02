@@ -3,6 +3,8 @@ require 'sinatra'
 require 'models'
 require 'usersystem'
 
+use Rack::Static, :urls => ["/css", "/images", "/files"], :root => "public"
+
 helpers do
   include Rack::Utils
   
@@ -17,7 +19,8 @@ helpers do
   end
   
   def authenticat_by_cookies
-    @current_user = Session.first(:token => request.cookies["token"]).user unless request.cookies["token"].nil? || request.cookies["token"].empty?
+    session = Session.first(:token => request.cookies["token"]) unless request.cookies["token"].nil? || request.cookies["token"].empty?
+    @current_user = session.user unless session.nil?
   end
   
   def authenticat_by_password(user, password)
@@ -40,12 +43,12 @@ helpers do
     delete_cookie("token")
   end
   
-  def authorized?(event)
+  def authorized?(event = 'logged_in')
     logged_in? && accessed?(event) || access_denied
   end
   
   def access_denied
-    haml :accessdenied
+    redirect '/accessdenied'
   end
   
   def accessed?(event)
@@ -55,7 +58,8 @@ helpers do
 end
 
 before do
-  logged_in?
+  access_page = ['/signup', '/accessdenied', '/about', '/login']
+  redirect '/login' unless logged_in? || access_page.include?(request.path)
 
   @test = request.path_info
   @path = request.path
@@ -66,6 +70,10 @@ end
 
 get '/about' do
   haml :about
+end
+
+get '/accessdenied' do
+  haml :accessdenied
 end
 #----------------------------
 # Регистрация и аутентификация
@@ -112,30 +120,58 @@ get '/logout' do
   redirect '/'
 end
 
+#------------
+# Права доступа
+#------------
+
 get '/permissions' do
+  authorized?('permissions_view')
   @permissions = Permission.all
   @users = User.all
   haml :'permissions/index'
 end
 
 post '/permissions' do
+  authorized?('permissions_add')
   Permission.new(params).save!
   redirect '/permissions'
 end
 
 get '/permissions/user/:login' do
+  authorized?('permissions_view')
   @user = User.first(:login => params[:login])
-  @permissions = Permission.all
+  @permissions = Permission.all - @user.permissions
   haml :'permissions/user'
 end
 
 get '/permissions/:permission' do
+  authorized?('permissions_view')
   @permission = Permission.first(:event => params[:permission])
-  @users = User.all
+  @users = User.all - @permission.users
   haml :'permissions/permission'
 end
 
+get '/permissions/:permission/del' do
+  authorized?('permissions_del')
+  Permission.first(:event => params[:permission]).destroy
+  redirect '/permissions'
+end
+
+get '/permissions/:permission/edit' do
+  authorized?('permissions_edit')
+  @permission = Permission.first(:event => params[:permission])
+  haml :'permissions/edit'
+end
+
+post '/permissions/:permission' do
+  authorized?('permissions_edit')
+  @permission = Permission.first(:event => params[:permission])
+  @permission.update_attributes(:event => params[:event], :description => params[:description])
+  redirect 'permissions/' + @permission.event
+end
+
 post '/permission/add' do
+  authorized?('permit')
   Permit.new(params).save!
   redirect request.referer
 end
@@ -152,11 +188,13 @@ end
 
 # add form
 get '/course' do
+  authorized?('course_add')
   haml :'courses/add'
 end
 
 # create course
 post '/course' do
+  authorized?('course_add')
   course = Course.new(params.merge(:created_at => Time.now)) #refactored it
   course.save!
   redirect course.permalink
@@ -202,8 +240,20 @@ post '/:course/lecture' do
 end
 
 get '/:course/:lecture' do
-  @user = '/:course/:lecture'
-  haml :index
+  @course = Course.first(:permalink => params[:course])
+  @lecture = @course.lectures.first(:number => params[:lecture])
+  haml :'lectures/show'
+end
+
+post '/:course/:lecture/fieldwork' do
+  course = Course.first(:permalink => params[:course])
+  lecture = course.lectures.first(:number => params[:lecture])
+  file_params = params[:attach]
+  output_file = "#{course.permalink}-#{@current_user.login}-#{file_params[:filename]}"
+  output_file = File.open('./public/files/'+output_file) { "#{course.permalink}-#{@current_user.login}-#{UserSystem.random_string(4)}-#{file_params[:filename]}" } rescue output_file
+  FileUtils.mv file_params[:tempfile].path, './public/files/'+output_file
+  lecture.fieldworks.new(:description => params[:description], :attach => output_file, :user_id => @current_user.id, :created_at => Time.now).save!
+  redirect '/' + params[:course] + '/' + params[:lecture]
 end
 
 get '/:course/:lecture/:user' do

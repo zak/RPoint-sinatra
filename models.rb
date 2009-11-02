@@ -132,6 +132,8 @@ class Fieldwork
   
   property :id, Serial
   property :description, Text
+  property :attach, String, :length => 0..255
+  property :created_at, DateTime
   
   belongs_to :lecture
   belongs_to :user
@@ -152,7 +154,22 @@ end
 def install
   DataMapper.auto_migrate!
   
-  User.new(:login => 'admin', :password => '123456').save!
+  User.new(:login => 'admin', :password => '7c4a8d09ca3762af61e59520943dc26494f8941b').save!
+  user = User.new(:login => 'zak', :password => '0f0109c6a2ee3e044aa6be74f92995daa86949bf')
+  user.save!
+  { :course_add => 'Добавить новый курс', :course_del => 'Удалить курс', :course_edit => 'Редактировать курс',
+    :lecture_add => 'Добавить лекцию',  :lecture_edit => 'Редактировать лекцию', :lecture_del => 'Удалить лекцию',
+    :thesis_add => 'Добавить тезис', :thesis_del => 'Удалить тезис', :thesis_edit => 'Редактировать тезис',
+    :appraisal => 'Поставить оценку',
+    :permit => 'Раздача привелегий',
+    :permissions_view => 'Просмотр привелегий', :permissions_add => 'Добавление привелегий', :permissions_del => 'Удаление привелегий',
+    :permissions_edit => 'Редактирование привелегий'}.find_all do |event, description|
+    p = Permission.new(:event => event, :description => description)
+    p.save!
+    user.permissions += [p]
+    user.save!
+  end
+  
   Course.new(:title => 'Тестовый', :permalink => 'test', :description => 'Не очень длинный текст, а хотелось больше!', :user_id => 1).save!
   Invite.new(:token => '123456789', :created_at => Time.now, :expires_at => (Time.now + 3600), :user_id => 1).save!
   Invite.new(:token => '123', :created_at => (Time.now - 3600), :expires_at => (Time.now), :user_id => 1).save!

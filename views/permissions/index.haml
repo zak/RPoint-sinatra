@@ -2,11 +2,15 @@
   %h2 Список прав
   %ul
     - @permissions.each do |permission|
-      %li= permission.event
+      %li
+        %a{ :href => '/permissions/' + permission.event }= permission.event
+        %a{ :href => '/permissions/' + permission.event + '/edit' } e
+        %a{ :href => '/permissions/' + permission.event + '/del' } x
       %span= permission.description
   %ul
     - @users.each do |user|
-      %li= user.login
+      %li
+        %a{ :href => '/permissions/user/' + user.login }= user.login
   %form{ :name => 'add', :method => 'post', :action => '/permissions'}
     %ul
       %li
