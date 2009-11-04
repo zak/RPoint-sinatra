@@ -1,10 +1,18 @@
-#content
-  %h2= @course.title
-  #text= @course.description
-  #lectures
-    %ol
-      - @course.lectures.each do |lecture|
-        %li
-          %a{ :href => '/'+@course.permalink+'/'+lecture.number.to_s }= lecture.subject
+.course{ :id => @course.permalink }
+  %h1= @course.title
+  %p= @course.description
+  #course-info
+    %h3 Информация о курсе
+    .date Опубликованно #{@course.created_at.to_post}
+    .author Автор: #{@course.user.login}
     - if accessed?('lecture_add')
       %a{ :href => '/'+@course.permalink+'/lecture' } Добавить новую лекцию
+  %ol#lectures
+    - @course.lectures.inject(1) do |index,lecture|
+      - css_class = (index % 2).zero? ? 'even' : 'odd'
+      - css_class += ' alpha' if index == 1
+      - css_class += ' omega' if index == @course.lectures.size
+      %li{ :class => css_class }
+        %small= lecture.created_at.to_post
+        %a{ :href => '/'+@course.permalink+'/'+lecture.number.to_s }= lecture.subject
+      - index + 1

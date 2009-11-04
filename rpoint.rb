@@ -1,9 +1,18 @@
 require 'rubygems'
 require 'sinatra'
+require 'haml'
 require 'models'
 require 'usersystem'
 
 use Rack::Static, :urls => ["/css", "/images", "/files"], :root => "public"
+
+class UserNotFound < NameError
+  def code 
+    404
+  end
+end
+
+#set :show_exceptions, false
 
 helpers do
   include Rack::Utils
@@ -58,8 +67,9 @@ helpers do
 end
 
 before do
-  access_page = ['/signup', '/accessdenied', '/about', '/login']
+  access_page = ['/signup', '/accessdenied', '/about', '/login', '/404']
   redirect '/login' unless logged_in? || access_page.include?(request.path)
+  @body_class = ''
 
   @test = request.path_info
   @path = request.path
@@ -74,6 +84,11 @@ end
 
 get '/accessdenied' do
   haml :accessdenied
+end
+
+get '/404' do
+  status 404
+  haml :'404'
 end
 #----------------------------
 # Регистрация и аутентификация
@@ -147,8 +162,10 @@ end
 get '/permissions/:permission' do
   authorized?('permissions_view')
   @permission = Permission.first(:event => params[:permission])
+  raise "Привелегия #{params[:permission]} не найдена." if @permission.nil?
   @users = User.all - @permission.users
   haml :'permissions/permission'
+  
 end
 
 get '/permissions/:permission/del' do
@@ -175,6 +192,26 @@ post '/permission/add' do
   Permit.new(params).save!
   redirect request.referer
 end
+
+#-------------------
+# Пользователи
+#-------------------
+
+get '/users' do
+  @users = User.all
+  haml :'users/list'
+end
+
+get '/user/:login' do
+  @user = User.first(:login => params[:login])
+  raise UserNotFound, "Пользователь #{h params[:login]} не найден." if @user.nil?
+  haml :'users/show'
+end
+
+error UserNotFound do
+  haml :not_found
+end
+
 #-------------------
 # Курсы
 #-------------------
@@ -183,6 +220,7 @@ end
 
 get '/courses' do
   @courses = Course.all
+  @body_class = 'courses'
   haml :'courses/index'
 end
 
@@ -195,7 +233,7 @@ end
 # create course
 post '/course' do
   authorized?('course_add')
-  course = Course.new(params.merge(:created_at => Time.now)) #refactored it
+  course = Course.new(params.merge(:created_at => Time.now, :user => @current_user)) #refactored it
   course.save!
   redirect course.permalink
 end
@@ -303,4 +341,16 @@ end
 get '/' do
   @user = User.first.login
   haml :index
+end
+
+error NoMethodError do
+  haml :not_found
+end
+
+error do
+  haml :'404'
+end
+
+not_found do
+  haml :'404'
 end

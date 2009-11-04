@@ -1,7 +1,11 @@
-#content
-  - if accessed?('course_add')
-    %a{ :href => '/course' } Добавить новый курс
-  %ul
-    - @courses.each do |course|
-      %li
+- @courses.inject(1) do |index,course|
+  - css_class = (index % 2).zero? ? 'even' : 'odd'
+  - css_class += ' alpha' if index == 1
+  - css_class += ' omega' if index == @courses.size
+  .course{ :id => course.permalink, :class => css_class }
+    .course-inner
+      %h2
         %a{ :href => course.permalink }= course.title
+      %p= course.description
+      %a{ :href => course.permalink } Пройти курс
+  - index + 1 

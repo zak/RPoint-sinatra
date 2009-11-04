@@ -1,25 +1,41 @@
 !!!
 %html{ :xmlns => 'http://www.w3.org/1999/xhtml', 'xml:lang' => 'ru', :lang => 'ru' }    
   %head
-    %title= "RPoint"
     %meta{ :content => 'text/html; charset=utf-8', 'http-equiv' => 'Content-Type' }
+    %title= "RPoint"
+    
+    
+    %link{ :rel => 'stylesheet', :href => '/css/style.css', :type => 'text/css'}
+    /[if IE 6]
+      %link{ :rel => 'stylesheet', :href => '/css/ie.css', :type => 'text/css'}
     %script{ :type => "text/javascript", :src => "/script.js"}
-    %link{ :rel => 'stylesheet', :href => '/style.css', :type => 'text/css'}
-  %body
-    #header
-      %h1= "RPoint"
-    #navigation
-      %div
-        %a{ :href => '/' } Главная
-        %a{ :href => '/courses' } Курсы
-        %a{ :href => '/about' } О нас
-        - if @current_user.nil?
-          %a#login{ :href => '/login'} Войти
-        -else
-          %a#logou{ :href => '/logout'} Выйте
-    = yield
-    #footer
-      #info 
-        %a{ :href => '/rss.xml' } RSS
-        %span= "|"
-        %a{ :href => '/atom.xml' } Atom
+  %body{ :id => @body_class }
+    #wrapper
+      #header
+        %h1
+          %a{:href => 'http://rpoint.ru/'}= "RPoint"
+        #menu
+          %a{ :href => '/' } Главная
+          %a{ :href => '/courses' } Курсы
+          %a{ :href => '/about' } О нас
+        #userbox
+          - if @current_user.nil?
+            %a#login{ :href => '/login'} Войти
+          -else
+            %a.user{ :href => '/user/' + @current_user.login }= @current_user.login
+            %a#logout{ :href => '/logout'} Выйти
+        - unless @current_user.nil?
+          #user-menu
+            %a{ :href => '/dashbord' } Профиль
+            %a{ :href => '/about' } Курсы
+            %a{ :href => '/about' } Сертификаты
+            - if accessed?('course_add')
+              %a{ :href => '/course' } Добавить новый курс
+      #container
+        = yield
+      #footer
+        #copyright Copyright &copy; 2009 RPoint.
+        #links
+          %a{ :href => '/rss.xml' } RSS
+          %span= "|"
+          %a{ :href => '/atom.xml' } Atom

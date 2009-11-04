@@ -6,6 +6,10 @@ class DateTime
   def rfc822
     self.strftime "%a, %d %b %Y %H:%M:%S %z"
   end
+  
+  def to_post
+    self.strftime "%d %b %Y %H:%M"
+  end
 end
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3:///#{Dir.pwd}/../rpoint.db")
@@ -170,9 +174,9 @@ def install
     user.save!
   end
   
-  Course.new(:title => 'Тестовый', :permalink => 'test', :description => 'Не очень длинный текст, а хотелось больше!', :user_id => 1).save!
+  Course.new(:title => 'Тестовый', :permalink => 'test', :description => 'Не очень длинный текст, а хотелось больше!', :user_id => 1, :created_at => Time.now).save!
   Invite.new(:token => '123456789', :created_at => Time.now, :expires_at => (Time.now + 3600), :user_id => 1).save!
   Invite.new(:token => '123', :created_at => (Time.now - 3600), :expires_at => (Time.now), :user_id => 1).save!
-  Lecture.new(:number => 1, :subject => 'Первая лекция', :content => 'Сама теория припрвленная <b>кодом</b>', :fieldwork => 'Практическое задание', :course_id => 1).save!
-  Lecture.new(:number => 2, :subject => 'Вторая лекция', :content => 'Сама теория припрвленная <b>кодом</b>', :fieldwork => 'Практическое задание', :course_id => 1).save!
+  Lecture.new(:number => 1, :subject => 'Первая лекция', :content => 'Сама теория припрвленная <b>кодом</b>', :fieldwork => 'Практическое задание', :course_id => 1, :created_at => Time.now).save!
+  Lecture.new(:number => 2, :subject => 'Вторая лекция', :content => 'Сама теория припрвленная <b>кодом</b>', :fieldwork => 'Практическое задание', :course_id => 1, :created_at => Time.now).save!
 end
