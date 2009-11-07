@@ -1,0 +1,51 @@
+@media screen, projection {
+	div#content															{padding-bottom:0;}
+	div#primary															{padding:0 0 27px; margin:0; background:url(../images/glow_bottom.png) 0 100% no-repeat; border:none;}
+	div#secondary														{clear:left; float:left; display:inline; width:940px; margin:0; padding:30px 10px 0;}
+	div#tertiary														{clear:left; float:left; display:inline; width:940px; margin:30px 0 0; padding:30px 10px 0; background:url(../images/glow_top.png) 0 0 no-repeat;}
+	
+	div#services														{}
+	div#services h1													{width:465px; height:44px; margin:0 0 6px; background:url(../images/heading_simple.gif) no-repeat; text-indent:-9999px; overflow:hidden;}
+	div#services p													{font-size:138.5%; line-height:1.5; margin:0 0 0 5px;}
+
+	div#form_function 											{}
+	
+	div#recommendations 										{float:left; display:inline; width:300px;}
+	div#recommendations h2#recommended 			{width:146px; height:29px; margin:0 0 17px; background:url(../images/heading_recommended.gif) no-repeat; text-indent:-9999px; overflow:hidden;}
+
+	ul#nav_recommended											{margin:0; padding:0;}
+	ul#nav_recommended li										{float:left; display:inline; clear:left; margin:0 0 25px;}
+	ul#nav_recommended li a									{float:left; display:block; width:304px; height:66px; background:url(../images/nav_recommended.gif) no-repeat; text-indent:-9999px; overflow:hidden;}
+	ul#nav_recommended li#nav_sid a					{background-position:0 0;}
+	ul#nav_recommended li#nav_sid a:hover		{background-position:0 -66px;}
+	ul#nav_recommended li#nav_sli a					{background-position:-304px 0;}
+	ul#nav_recommended li#nav_sli a:hover		{background-position:-304px -66px;}
+	ul#nav_recommended li#nav_mym a					{background-position:-608px 0;}
+	ul#nav_recommended li#nav_mym a:hover		{background-position:-608px -66px;}
+
+	div#recent_work													{float:left; display:inline; width:620px; margin:0 0 0 20px;}
+	div#recent_work h2											{width:174px; height:29px; margin:0 0 16px; background:url(../images/heading_recent_work.gif) no-repeat; text-indent:-9999px; overflow:hidden;}
+	div.home_work 													{float:left; display:inline; margin:0 0 30px;}
+	div.home_work h3												{color:#f60; font-size:197%; font-weight:normal; margin:0 0 10px; padding:0;}
+	div.home_work p													{font-size:116%; line-height:1.5; margin:0; padding:0;}
+	div.home_work a:hover img								{background:#605334;}
+	div.home_work img												{float:left; display:inline; margin:0 25px 0 0; padding:5px; background:#403823;}
+	p#view_more_entries a										{clear:left; display:block; width:300px; height:28px; background:url(../images/view_more_entries.gif) no-repeat; text-indent:-9999px; overflow:hidden;}
+	p#view_more_entries a:hover							{background-position:0 -28px;}
+
+	div#recent_articles											{float:left; display:inline; width:300px; padding:0 0 30px;}
+	div#recent_articles h2									{width:156px; height:29px; margin:0 0 12px; padding:0; background:url(../images/heading_recent_articles.gif) no-repeat; text-indent:-9999px; overflow:hidden;}
+	div#recent_articles ul									{margin:0; padding:0; list-style-type:none;}
+	div#recent_articles ul li								{margin:0 0 15px; padding:0 0 0 34px; background:url(../images/bullet.gif) 6px 2px no-repeat; list-style:none !important;}
+	div#recent_articles ul li	a							{font-size:116%;}
+	div#recent_articles ul li small					{font-size:116%; color:#777357; display:block;}
+	div#recent_articles p										{margin:0 0 0 34px; font-size:116%;}
+
+	div#latest_article											{float:left; display:inline; width:600px; margin:0 0 0 20px; padding:0 0 30px 0;}
+	div#latest_article h4										{color:#A19351; text-transform:uppercase;}
+	div#latest_article h3										{color:#f60; font-size:197%; margin:0px 0 16px; padding:0; font-weight:normal;}
+	div#latest_article p										{font-size:138.5%; line-height:1.5; margin:0 0 20px;}
+	div#latest_article ul										{margin:0; padding:0;}
+	div#latest_article ul li								{float:left; display:inline; font-size:116%; margin:0 60px 0 0; padding:1px 0 0 20px; background:url(../images/bullet.gif) 0 2px no-repeat;}
+	div#latest_article ul li.omega					{background-image:url(../images/bullet_feed.gif);}
+}

@@ -1,0 +1,15 @@
+@media screen, projection {
+	div#wrapper {background:url(../images/border_two_color.png) 0 100px repeat-x;}
+	
+	ol#commentlist li.author, div.odd, 
+	body#body_section_contact div#tertiary,
+	body#body_section_1 div#tertiary {background:url(../images/border_two_color.png) repeat-x;}
+	
+	body#body_section_7 div#primary,
+	ol#commentlist li.author div.comment_wrapper,
+	div.odd div.work_inner, body#body_section_5 div#primary,
+	div#primary_inner, div#tertiary_inner, div#content,
+	body#body_section_1 div#primary {background:url(../images/border_two_color.png) 0 100% repeat-x;}
+	
+	.primary 		{border-color:#251D17;}
+}

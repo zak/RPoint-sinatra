@@ -1,0 +1,42 @@
+#user
+  %h1= @current_user.login
+  .info
+    %h3 Сменить пароль
+    %form{:name => 'pass', :method => 'post', :action => '/dashbord/pass'}
+      %ol
+        %li
+          %label{:for => 'old_pass'} Старый пароль
+          %input{:name => 'old_pass', :type => 'password'}
+        %li
+          %label{:for => 'new_pass'} Новый
+          %input{:type => 'password', :name => 'password'}
+        %li
+          %label{:for => 'confirm'} Подтвердить
+          %input{:type => 'password', :name => 'confirm'}
+        %li.submit
+          %input{:type => 'submit', :value => 'Только бы не забыть'}
+    - if @current_user.invites.any?
+      %h3 Ваши инвайты
+      %ul
+        - @current_user.invites.each do |invite|
+          %li
+            %a{:href=> '/signup?'+invite.token}= invite.token
+            %small Колличество регистраций: #{invite.value}. Использовать до #{invite.expired_at.to_post}
+            - if invite.users.any?
+              %ul
+                - invite.users.each do |user|
+                  %li
+                    %a{:href => '/user/'+user.login}= user.login
+                    %small Зарегистрирован #{user.created_at.to_post}
+    - if accessed?('invite_add')
+      %h3 Создать инвайт
+      %form{:name => 'invite', :method => 'post', :action => '/dashbord/invite'}
+        %ol
+          %li
+            %label{:for => 'value'} Количество регистраций
+            %input{:type => 'text', :name => 'value'}
+          %li
+            %label{:for => 'expired'} Срок действия (в днях)
+            %input{:type => 'text', :name => 'expired', :value => 30}
+          %li.submit
+            %input{:type => 'submit', :value => 'Создать'}

@@ -1,0 +1,6 @@
+#users
+  %h1 Список пользователей
+  %ol
+    - @users.each do |user|
+      %li{:id => user.login}
+        %a{ :href => '/user/' + user.login }= user.login

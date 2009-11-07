@@ -1,0 +1,112 @@
+/*************************************
+Base for code highlighting
+*************************************/
+body pre {
+  background: #1E1712;
+  color: #fff;
+  margin: 10px 0;
+  padding: 1.5em 20px;
+  margin-bottom: 1.5em;
+  overflow: auto;
+}
+
+code {
+  font: 100% monospace;
+  background: #1E1712;
+  padding:0 5px;
+  color:#FFF;
+}
+
+pre code {padding:0; line-height:1.3;}
+
+/*************************************
+RUBY Highlighting
+*************************************/
+#content code.ruby span.comment {
+  color: #666;
+}
+
+#content code.ruby span.string {
+  color: #A5C261;
+}
+
+#content code.ruby span.brackets {
+  color: #E3C2F8;
+}
+
+#content code.ruby span.symbol {
+  color: #6D9CBE;
+}
+
+#content code.ruby span.keywords {
+  color: #BF7833;
+}
+
+ /*************************************
+JAVASCRIPT Highlighting
+*************************************/
+#content code.javascript span.comment {
+  color: #666;
+}
+
+#content code.javascript span.string {
+  color: #A5C261;
+}
+
+#content code.javascript span.brackets {
+  color: #E3C2F8;
+}
+
+#content code.javascript span.symbol {
+  color: #6D9CBE;
+}
+
+#content code.javascript span.keywords {
+  color: #BF7833;
+}
+
+/*************************************
+HTML Highlighting
+*************************************/
+#content code.html span.comment {
+  color: #666;
+}
+
+#content code.html span.string {
+  color: #A5C261;
+}
+
+#content code.html span.tag {
+  color: #6D9CBE
+}
+
+#content code.html span.attribute {
+  color: #BF7833;
+}
+
+#content code.html span.doctype {
+  color: #E3C2F8;
+}
+
+/*************************************
+CSS Highlighting
+*************************************/
+#content code.css span.comment {
+  color: #666;
+}
+
+#content code.css span.keywords {
+  color: #BF7833;
+}
+
+#content code.css span.selectors {
+  color: #BF7833;
+}
+
+#content code.css span.properties {
+  color: #6D9CBE;
+}
+
+#content code.css span.units {
+  color: #A5C261;
+}

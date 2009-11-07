@@ -1,0 +1,44 @@
+#fieldworks
+  %h1 Оценки для пользователя #{@user.login}
+  %h2 Список работ
+  %ol
+    - @fieldworks.inject(1) do |index,fieldwork|
+      - css_class = (index % 2).zero? ? 'even' : 'odd'
+      - css_class += ' alpha' if index == 1
+      - css_class += ' omega' if index == @fieldworks.size
+      %li{:class => css_class}
+        .fieldwork
+          %small Добавленно #{fieldwork.created_at.to_post}
+          .description= fieldwork.description
+          %a{ :href => '/files/' + fieldwork.attach}= fieldwork.attach
+        .appraisal
+          %h3 Оценки
+          
+          - unless fieldwork.appraisals.empty?
+            %ul
+              - fieldwork.appraisals.each do |appraisal|
+                %li 
+                  .thesis= appraisal.thesis.content 
+                  %em= appraisal.mark
+          - if accessed?('appraisal') && fieldwork.appraisals.empty?
+            %form{ :name => 'add', :method => 'post', :action => request.path}
+              %input{ :name => 'fieldwork_id', :type => 'hidden', :value => fieldwork.id }
+              %ul
+                - @lecture.theses.each do |thesis|
+                  %li
+                    %label{ :for => "marks[#{thesis.id}]"}= thesis.content
+                    %select{ :name => "marks[#{thesis.id}]"}
+                      - thesis.appraisal.split('|').each do |item|
+                        %option{ :value => item }= item
+                %li.submit
+                  %input{ :type => 'submit', :value => 'Оценить' }
+          - if fieldwork.appraisals.empty? && !accessed?('appraisal')
+            %ul
+              - @lecture.theses.each do |thesis|
+                %li
+                  .thesis= thesis.content
+                  %em N/A
+          - if accessed?('appraisal') && !@lecture.next.nil? && !@lecture.next.users.include?(@user)
+            %a{:href => request.path + '/next' } Зачет
+      - index + 1
+  = comments

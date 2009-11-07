@@ -1,0 +1,84 @@
+
+# Файл настроек программы
+
+# Подключаемые файлы
+
+# База E-MAIL адресов
+MAILBASE=./upload/mailbase.txt
+
+# Список для FROM
+FROM=./upload/from.txt
+
+# Список для REPLY-TO
+REPLYTO=./upload/replyto.txt
+
+# Список для SUBJECT
+SUBJECT=./upload/subject.txt
+
+# Список писем
+LETTER=./upload/letter.txt
+
+# Список аттачментов
+ATTACH=./upload/attach.txt
+
+# Список SOCKS прокси
+PROXY=./upload/proxy.txt
+
+# Настройки отправки
+
+# Сервер DNS
+DNS=156.154.70.1
+
+# Число потоков [1..10000]
+THREADS=40
+
+# Таймаут [1..60 сек]
+TIMEOUT=60
+
+# Максимум попыток доставки письма [1..65535]
+RETRIES=1
+
+# Кодировка письма [win, koi, iso, другая кодировка]
+CHARSET=utf-8
+
+# Стиль оформления письма [thebat, outlook, random]
+MAILER=outlook
+
+# Приоритет письма [low, normal, high, random]
+PRIORITY=random
+
+# Максимум неудачных соединений с SOCKS [1..65535]
+PROXYER=3
+
+# Таймаут соединения с SOCKS [1..60 сек]
+PROXYCN=10
+
+# Таймаут записи в SOCKS [1..300 сек]
+PROXYWR=10
+
+# Таймаут чтения из SOCKS [1..300 сек]
+PROXYRD=4
+
+# Таймер автозагрузки списка SOCKS [1..1440 мин]
+PROXYUP=3
+
+# Доменное имя хоста [определяется автоматически если не задано]
+# LOCAL=www.facebook.com
+
+# Время хранения кэша MX [1..30 суток]
+CTIME=1
+
+# Случайная дата создания письма
+# FAKEDATE=yes
+
+# Изменять домен в поле FROM на домен прокси / хоста
+# FAKEFROM=no
+
+# Извлекать имя из адреса при отсутствии
+# EXCTNAME=yes
+
+# Имена с заглавной буквы
+# UCINNAME=yes
+
+# Режим работы программы [send, verify]
+MODE=send

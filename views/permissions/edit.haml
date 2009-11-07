@@ -1,0 +1,13 @@
+#content
+  %h2 Редактирование привелегии
+  %form{ :name => 'edit', :method => 'post', :action => '/permissions/' + @permission.event}
+    %ul
+      %li
+        %label{ :for => 'event' } Событие
+        %input{ :name => 'event', :type => 'text', :value => @permission.event }
+      %li
+        %label{ :for => 'description' } Описание
+        %input{ :name => 'description', :type => 'text', :value => @permission.description }
+      %li.submit
+        %input{ :type => 'submit', :value => 'Сохранить'}
+        %a{ :href => '/permissions' } Отмена

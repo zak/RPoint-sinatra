@@ -1,0 +1,61 @@
+.lecture{ :id => "#{@course.permalink}-#{@lecture.number}"}
+  %a{:href => '/'+@course.permalink} << #{@course.title}
+  .gist
+    %h1= @lecture.subject
+    - if accessed?('lecture_edit')
+      .controls
+        %a{:href => '/'+@course.permalink+'/'+@lecture.number.to_s+'/edit'} Редактировать
+        %a{:href => '/'+@course.permalink+'/'+@lecture.number.to_s+'/del', :onclick => "confirm('Вы уверены?')"} Удалить
+    .content= @lecture.content
+  .fieldwork
+    %h3 Практическое задание
+    .content= @lecture.fieldwork
+  .theses
+    .theses-inner
+      %h3 Тезисы
+      %ol
+        - @lecture.theses.each do |thesis|
+          %li= thesis.content
+  - if accessed?("thesis_add")
+    .controls
+      %h3 Добавить тезис
+      %form{:name => 'add', :method => 'post', :action => '/'+@course.permalink+'/'+@lecture.number.to_s+'/thesis'}
+        %ul
+          %li
+            %label{ :for => 'content' } Тезис
+            %input{ :name => 'content', :type => 'text' }
+          %li
+            %label{ :for => 'appraisal'} Система оценки (Пример: "1|2|3|4|5", "зачет|не зачет")
+            %input{ :name => 'appraisal', :type => 'text' }
+          %li.submit
+            %input{ :type => 'submit', :value => 'Добавить'}
+  .fieldworks
+    - if accessed?('appraisal')
+      %h3 Сданные работы
+      %ul
+        - @lecture.fieldworks.each do |fieldwork|
+          %li 
+            = fieldwork.user.login
+            = fieldwork.created_at.to_post
+            %a{ :href => '/'+@course.permalink+'/'+@lecture.number.to_s+'/'+fieldwork.user.login }= fieldwork.attach
+    - if @fieldworks.any?
+      %h3 Мои работы
+      %ul
+        - @lecture.fieldworks.each do |fieldwork|
+          %li 
+            = fieldwork.created_at.to_post
+            %a{ :href => '/'+@course.permalink+'/'+@lecture.number.to_s+'/'+fieldwork.user.login }= fieldwork.attach
+  .add-fieldworks
+    .add-fieldworks-inner
+      %h3 Добавить выполненную работу
+      %form{ :name => 'add', :method => 'post', :action => '/'+@course.permalink+'/'+@lecture.number.to_s+'/fieldwork',:enctype=>'multipart/form-data'}
+        %ul
+          %li
+            %label{ :for => 'description' } Выполненная работа
+            %textarea{ :name => 'description' }
+          %li
+            %label{ :for => 'attach'} Файл
+            %input{ :name => 'attach', :type => 'file' }
+          %li.submit
+            %input{ :type => 'submit', :value => 'Отправить' }
+  = comments

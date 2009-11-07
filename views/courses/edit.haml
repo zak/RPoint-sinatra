@@ -1,0 +1,16 @@
+#course
+  %h1 Редактирование курса #{@course.title}
+  %form{ :name => 'add', :method => 'post', :action => '/'+@course.permalink}
+    %ul
+      %li
+        %label{ :for => 'title' } Название
+        %input{ :name => 'title', :type => 'text', :value => @course.title }
+      %li
+        %label{ :for => 'permalink' } Линк
+        %input{ :name => 'permalink', :type => 'text', :value => @course.permalink }
+      %li
+        %label{ :for => 'description' } Описание
+        %textarea{ :name => 'description'}= @course.description
+      %li.submit
+        %input{ :type => 'submit', :value => 'Сохранить' }
+        %a{ :href => '/'+@course.permalink } Отмена

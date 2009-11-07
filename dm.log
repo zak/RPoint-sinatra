@@ -1,0 +1,5 @@
+Fri, 06 Nov 2009 05:46:56 GMT 
+ info 
+ Logfile created
+
+no such table: comments (code: 1, sql state: , query: SELECT "id", "page", "created_at" FROM "comments" ORDER BY "id", uri: sqlite3:////home/zak/code/rpoint/../rpoint.db)

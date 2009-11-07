@@ -1,0 +1,17 @@
+#comments
+  %h3 Комментарии
+  %ol
+    - @comments.each do |comment|
+      %li{:id => "comment-#{comment.id}"}
+        .author
+          %small= comment.created_at.to_post
+          %img{:src => comment.user.avatar, :alt => 'avatar'}
+          %a{ :href => '/user/'+comment.user.login}= comment.user.login
+        .comment= comment.comment
+  %form{:name => 'comment', :method => 'post', :action => request.path+'/comment'}
+    %ol
+      %li
+        %label{:for => 'comment'} Комментарий
+        %textarea{:name => 'comment'}
+      %li.submit
+        %input{:type => 'submit', :value => 'Прокомментировать' }

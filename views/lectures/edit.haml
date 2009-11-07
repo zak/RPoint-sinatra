@@ -1,0 +1,19 @@
+#lecture
+  %h2 Редактирование лекции лекции #{@lecture.subject}
+  %form{ :name => 'add', :method => 'post', :action => "/#{@course.permalink}/#{@lecture.number}"}
+    %ul
+      %li
+        %label{ :for => 'subject' } Тема
+        %input{ :name => 'subject', :type => 'text', :value => @lecture.subject }
+      %li
+        %label{ :for => 'number' } Номер
+        %input{ :name => 'number', :type => 'text', :value => @lecture.number }
+      %li
+        %label{ :for => 'content' } Лекция
+        %textarea{ :name => 'content'}= @lecture.content
+      %li
+        %label{ :for => 'fieldwork' } Практическое задание
+        %textarea{ :name => 'fieldwork'}= @lecture.fieldwork
+      %li.submit
+        %input{ :type => 'submit', :value => 'Сохранить' }
+        %a{ :href => "/#{@course.permalink}/#{@lecture.number}" } Отмена

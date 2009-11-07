@@ -1,0 +1,504 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title> Thin Text in Safari with Snow Leopard // Ordered List // We Make The Web Beautifully Simple</title>
+	<link href="css/common.css" rel="stylesheet" type="text/css">
+
+	<!--[if IE 6]><link href="/stylesheets/ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+</head><body id="body_section_7">
+	<div id="wrapper">
+		<div id="header">
+			<h3><a href="http://orderedlist.com/">Ordered List</a></h3>
+			<ul id="nav">
+				<li id="nav_hom"><a href="http://orderedlist.com/">Home</a></li>
+				<li id="nav_ser"><a href="http://orderedlist.com/services/">Services</a></li>
+				<li id="nav_wor"><a href="http://orderedlist.com/portfolio/">Work</a></li>
+				<li id="nav_art"><a href="http://orderedlist.com/archive/">Articles</a></li>
+				<li id="nav_abo"><a href="http://orderedlist.com/about/">About</a></li>
+				<li id="nav_con"><a href="http://orderedlist.com/contact/">Contact</a></li>
+			</ul>
+		</div>
+		<div id="content">
+			<div id="primary" class="wrapper">
+	<div class="post primary">
+		<h1>Thin Text in Safari with Snow Leopard</h1>
+	
+		<div class="excerpt">
+			<p>Safari
+has a not-so-lovely way of bulking up text using sub-pixel rendering.
+On previous versions of Safari, this was fixed with a <code>text-shadow</code> declaration, but since Snow Leopard that method no longer works. Fortunately, I’ve found an alternative.</p>
+		</div>
+	
+		<p>The
+thick text is much more noticeable when light text is placed on a dark
+background. It annoys me so much, that as I was working on a redesign
+for this site, I seriously thought about throwing out a dark design
+because I was scared of portly typography. So I dug in, and found a way
+to slim down the type in my favorite browser. Here’s the solution, and
+it’s remarkably simple:</p>
+
+
+<pre><code class="css"><span class="selectors">body </span>{ <span class="properties">-webkit-text-stroke</span>:1<span class="units">px</span> transparent; }
+<span class="keywords">@media only screen and </span>(<span class="selectors">max-device-width:480px) </span>{<span class="selectors">body</span>{<span class="properties">-webkit-text-stroke</span>:0 black;}}</code></pre>
+
+	<p>There
+you go. SImply add that to your css file. Change the selector, if you
+need, and put your type on a diet. The second line is to prevent Mobile
+Safari from using the technique, as it handles text well, and doesn’t
+support transparency on <code>text-stroke</code>.</p>
+
+
+	<p>Here’s a before and after screenshot, so you can see the difference.</p>
+
+
+	<p class="photo"><img src="images/transparent-text-stroke.png" title="Thin Text in Safari with Snow Leopard" alt="Thin Text in Safari with Snow Leopard"></p>
+	</div>
+	<div id="post_info" class="secondary">
+		<h3 id="post_info">Post and Author Info.</h3>
+		<h4>Published September 20, 2009 by:</h4>
+
+		<div id="form_function">
+			
+				<div id="form">
+	<a href="http://orderedlist.com/about/">
+		<img src="images/steve.jpg" alt="Steve Smith">
+		<span class="name"><em>Steve Smith</em> The Form</span>
+		<span class="blurb">Steve creates and builds beautiful, usable designs and interfaces.</span>
+	</a>
+</div>
+			
+		</div>
+
+		
+			<p class="tags">This article is tagged with <a href="http://orderedlist.com/tags/design" rel="tag">design</a>, <a href="http://orderedlist.com/tags/safari" rel="tag">safari</a>, <a href="http://orderedlist.com/tags/thin" rel="tag">thin</a>, and <a href="http://orderedlist.com/tags/type" rel="tag">type</a>.</p>
+		
+
+		<p id="comment_info">
+			
+			
+				So far there are <a href="#commentlist">22 comments</a>.
+			
+		</p>
+		
+		<div id="advertisement">
+			<p><a href="http://harmonyapp.com/"><img src="images/harmony_ad.jpg" alt="Find out more about Harmony"></a></p>
+		</div>
+	</div>
+</div>
+
+<div id="secondary">
+	
+	<h2 id="comments">22 comments</h2>
+
+<ol id="commentlist">
+	
+		<li class="comment" id="comment-5461">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>I
+find that Firefox does this more than Safari (for me). My fix was to
+quit Firefox, launch Safari, quit Safari and then open Firefox back up
+to see that the problem was eliminated.</p>
+
+    <p>I had no clue there was an actual <span class="caps"><span class="caps">CSS</span></span> fix. Nice. :)</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Michael Dick" class="gravatar" src="images/avatar_005.jpeg" width="30" height="30">
+					<cite><a href="http://m1k3.net/">Michael Dick</a></cite>
+					<p class="date">
+						<a href="#comment-5461" title="Link to this Comment">
+							September 20th, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5462">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Thanks for the tip!</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="FireWolfsblog" class="gravatar" src="images/avatar_007.jpeg" width="30" height="30">
+					<cite><a href="http://www.remotecoder.us/">FireWolfsblog</a></cite>
+					<p class="date">
+						<a href="#comment-5462" title="Link to this Comment">
+							September 20th, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5463">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Under
+Preferences &gt; Appearance &gt; Font Smoothing … Did changing the
+default setting do anything for you? I’m not on a Mac, but I found
+tweaking the settings addressed this issue for me. I tend to keep
+Safari4/Win with the Light or Medium setting enabled.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Chris Harrison" class="gravatar" src="images/avatar_005.png" width="30" height="30">
+					<cite><a href="http://cdharrison.com/">Chris Harrison</a></cite>
+					<p class="date">
+						<a href="#comment-5463" title="Link to this Comment">
+							September 20th, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment author" id="comment-5464">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p><strong>@Chris:</strong> Unfortunately, we don’t have that setting on <span class="caps"><span class="caps">OSX</span></span>. But ideally I want the type thinner for everyone on Safari, not just me.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Steve Smith" class="gravatar" src="images/avatar.jpeg" width="30" height="30">
+					<cite><a href="http://orderedlist.com/">Steve Smith</a></cite>
+					<p class="date">
+						<a href="#comment-5464" title="Link to this Comment">
+							September 20th, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5465">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>I frequently use <code>opacity: 0.99;</code> to achieve the same effect. The smoothing doesn’t look quite as nice, but it also thins fonts in Firefox. Examples here: <a href="http://twitpic.com/ij4yl">http://twitpic.com/ij4yl</a></p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Chuck Harmston" class="gravatar" src="images/avatar_006.jpeg" width="30" height="30">
+					<cite><a href="http://chuckharmston.com/">Chuck Harmston</a></cite>
+					<p class="date">
+						<a href="#comment-5465" title="Link to this Comment">
+							September 20th, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5466">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>One thing to consider, most of us on windows and linux are use to, or may even prefer thicker text. This <em>may</em> adversely affect those of us using chrome, or even safari on windows.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="dustin hansen" class="gravatar" src="images/avatar_003.jpeg" width="30" height="30">
+					<cite><a href="http://maveno.us/">dustin hansen</a></cite>
+					<p class="date">
+						<a href="#comment-5466" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5467">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Interesting.
+It is the case, usually, that light text on dark backgrounds get drowned out and lost. 
+In this case, I’m looking at this on Safari 4 on SL and I prefer how your site styles Helvetica.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Luke Dorny" class="gravatar" src="images/avatar_002.png" width="30" height="30">
+					<cite><a href="http://lukedorny.com/">Luke Dorny</a></cite>
+					<p class="date">
+						<a href="#comment-5467" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5468">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>I’m
+not sure this will go over too well with everybody. Not to mention that
+I see nothing like your screenshot in my Safari (of course not here, if
+you changed it, but neither anywhere else). That looks like a
+screenshot straight out of FireFox, not Safari; the attention to
+typography details in Safari has always really impressed me.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="elliottcable" class="gravatar" src="images/avatar_006.gif" width="30" height="30">
+					<cite><a href="http://elliottcable.name/">elliottcable</a></cite>
+					<p class="date">
+						<a href="#comment-5468" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5469">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Love the rendering here, but “opacity:.99” does seem to produce more consistant rendering.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="James John Malcolm" class="gravatar" src="images/avatar_002.jpeg" width="30" height="30">
+					<cite><a href="http://james.gameover.com/">James John Malcolm</a></cite>
+					<p class="date">
+						<a href="#comment-5469" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5470">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Looks terrible on the iPhone</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Adam" class="gravatar" src="images/avatar_004.gif" width="30" height="30">
+					<cite><span>Adam</span></cite>
+					<p class="date">
+						<a href="#comment-5470" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5471">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Works like a champ for me :) Thanks for the tip!</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Marius B" class="gravatar" src="images/avatar.png" width="30" height="30">
+					<cite><a href="http://www.alpinethosemyriads.com/">Marius B</a></cite>
+					<p class="date">
+						<a href="#comment-5471" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5472">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Go to Preferences &gt; Appearance &gt;    and check ‘use <span class="caps"><span class="caps">LCD</span></span> font smoothing when available’ which fixes the fonts.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Jonno Riekwel" class="gravatar" src="images/avatar_003.png" width="30" height="30">
+					<cite><a href="http://jonnotie.nl/">Jonno Riekwel</a></cite>
+					<p class="date">
+						<a href="#comment-5472" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5473">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Have you tried something more sensible ?
+body {
+font-family: ‘Helvetica Neue’, Arial, sans-serif; /* add others to taste*/
+font-weight: 300;
+}
+Safari 4.0+ has fairly decent support for multiple font-weights. And the above will benefit Gecko users as well.
+(the code above doesn’t work for every font-family, only those that shipwith multiple font-weights)</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Philippe" class="gravatar" src="images/avatar_005.gif" width="30" height="30">
+					<cite><a href="http://l-c-n.com/">Philippe</a></cite>
+					<p class="date">
+						<a href="#comment-5473" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment author" id="comment-5474">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>I’ve updated the post to filter out Mobile Safari, as it doesn’t seem to support transparent text-stroke.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Steve Smith" class="gravatar" src="images/avatar.jpeg" width="30" height="30">
+					<cite><a href="http://orderedlist.com/">Steve Smith</a></cite>
+					<p class="date">
+						<a href="#comment-5474" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5476">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>I second using something like font-weight: 300—Works in Safari/Firefox very well.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="DRoss" class="gravatar" src="images/avatar.gif" width="30" height="30">
+					<cite><span>DRoss</span></cite>
+					<p class="date">
+						<a href="#comment-5476" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5477">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Prior to Safari 4, you were able to achieve this “knockout-type” effect using <code>text-shadow</code>—however, it was a hack and when rendered properly (ex: by Opera), looked terrible.</p>
+
+    <p>When Safari 4 came out, I discovered <code>webkit-text-stroke</code> worked much better.  Rather than use a <code>transparent</code> stroke colour, I used rgba(255, 255, 255, 0.3).  I hadn’t thought of trying <code>transparent</code>—that might be fun to play with.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Kyle Fox" class="gravatar" src="images/avatar_008.jpeg" width="30" height="30">
+					<cite><a href="http://kylefox.ca/">Kyle Fox</a></cite>
+					<p class="date">
+						<a href="#comment-5477" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5478">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>this is very useful to me thanx a lot</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Dragonant" class="gravatar" src="images/avatar_003.gif" width="30" height="30">
+					<cite><a href="http://dragonant.deviantart.com/">Dragonant</a></cite>
+					<p class="date">
+						<a href="#comment-5478" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5479">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>Nice
+tip! I just tested both techniques in Mac Safari 4 and Firefox 3.5.
+While opacity works in both browsers, the anti-aliasing is cleaner in
+Safari when you use the <code>-webkit-text-stroke</code> effect outlined in the original post.</p>
+
+    <p><strong>@Philippe</strong> I am not seeing the increased support for <code>font-weight</code>... it’s just like it’s always been, with 600 and 700 being rendered bold, and the other five being rendered normal.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Chris Ruppel" class="gravatar" src="images/avatar_004.png" width="30" height="30">
+					<cite><a href="http://chrisruppel.com/">Chris Ruppel</a></cite>
+					<p class="date">
+						<a href="#comment-5479" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5481">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>So, what’s you’re saying is that you wish <span class="caps"><span class="caps">OSX</span></span> displayed font’s like Windows :)</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Tim" class="gravatar" src="images/avatar_007.gif" width="30" height="30">
+					<cite><span>Tim</span></cite>
+					<p class="date">
+						<a href="#comment-5481" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment author" id="comment-5482">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p><strong>@Tim:</strong>
+NO!! Not at all!!! It’s just that in some circumstances, sub-pixel
+rendering is a little bulky, so it needs to be trimmed down a bit. But
+I’d take fat sub-pixel rendering over ClearType any day.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Steve Smith" class="gravatar" src="images/avatar.jpeg" width="30" height="30">
+					<cite><a href="http://orderedlist.com/">Steve Smith</a></cite>
+					<p class="date">
+						<a href="#comment-5482" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5483">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>I’ve
+only just realised that there is a difference. after reading this post.
+But thanks for introducing webkit-text-stroke to me.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Jason Eyerman" class="gravatar" src="images/avatar_004.jpeg" width="30" height="30">
+					<cite><a href="http://www.aspirecreate.com/">Jason Eyerman</a></cite>
+					<p class="date">
+						<a href="#comment-5483" title="Link to this Comment">
+							September 21st, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+		<li class="comment" id="comment-5484">
+			<div class="wrapper">
+				<div class="comment_body primary">
+					<p>We recently added a -webkit-font-smoothing <span class="caps"><span class="caps">CSS</span></span>
+property to WebKit to provide explicit control over the antialiasing.
+See http://trac.webkit.org/changeset/48441 for details of the change,
+including a description of the allowed values for the property. You
+should be able to test this in the latest WebKit nightly from
+http://nightly.webkit.org/.</p>
+
+    <p>I’d also suggest being more
+conservative in applying this trick than your example code suggests.
+Black text on a white background, such as the text within these form
+fields, often looks worse rather than better when this is applied to it.</p>
+				</div>
+				<div class="comment_author secondary">
+					<img alt="Mark Rowe" class="gravatar" src="images/avatar_002.gif" width="30" height="30">
+					<cite><a href="http://webkit.org/">Mark Rowe</a></cite>
+					<p class="date">
+						<a href="#comment-5484" title="Link to this Comment">
+							September 22nd, 2009</a></p>
+				</div>
+			</div>
+		</li>
+  
+  
+		<li id="comment_preview" class="comment untouched"></li>
+  
+</ol>
+
+
+	<div id="make_a_comment" class="wrapper">
+		<h3 id="respond">Make A Comment</h3>
+		<form id="comment-form" method="post" action="/articles/thining-text-in-safari-under-snow-leopard/comments#comment-form">
+			<div id="comment_body" class="primary">
+				<p><label for="comment">Comment</label>
+					<textarea name="comment[body]" id="comment" cols="55" rows="10"></textarea></p>
+			</div>
+			<div id="commenter_info" class="secondary">
+				<p><label for="author">Your Name</label> <input id="comment_author" name="comment[author]" value="" type="text"></p>
+				<p><label for="email">Your Email Address</label> <input id="comment_author_email" name="comment[author_email]" value="" type="text"></p>
+				<p><label for="url">Your Website</label> <input id="comment_author_url" name="comment[author_url]" value="" type="text"></p>
+			</div>
+			<div class="submit">
+				<p>
+					<input name="submit" id="submit" src="images/button_comment.gif" value="Submit Comment" type="image">
+				</p>
+			</div>
+		</form>
+	</div>
+
+</div>
+		</div>
+		<div id="footer">
+			<p id="copyright">Copyright © 2004-2009 Ordered List Inc. ISSN# 1555-7928. All Rights Reserved.</p>
+			<p id="karma">Don't steal our stuff. It's bad karma.</p>
+		</div>
+	</div>
+</body></html>
