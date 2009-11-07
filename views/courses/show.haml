@@ -5,8 +5,13 @@
     %h3 Информация о курсе
     .date Опубликованно #{@course.created_at.to_post}
     .author Автор: #{@course.user.login}
-    - if accessed?('lecture_add')
-      %a{ :href => '/'+@course.permalink+'/lecture' } Добавить новую лекцию
+    .controls
+      - if accessed?('course_edit')
+        %a{ :href => '/'+@course.permalink+'/edit'} Редактировать
+      - if accessed?('course_del')
+        %a{:href => '/'+@course.permalink+'/del', :onclick => "confirm('Вы уверены?')"} Удалить
+      - if accessed?('lecture_add')
+        %a{ :href => '/'+@course.permalink+'/lecture' } Добавить новую лекцию
   %ol#lectures
     - @course.lectures.inject(1) do |index,lecture|
       - css_class = (index % 2).zero? ? 'even' : 'odd'
@@ -14,5 +19,9 @@
       - css_class += ' omega' if index == @course.lectures.size
       %li{ :class => css_class }
         %small= lecture.created_at.to_post
-        %a{ :href => '/'+@course.permalink+'/'+lecture.number.to_s }= lecture.subject
+        - if access_lecture? lecture
+          %a{ :href => '/'+@course.permalink+'/'+lecture.number.to_s }= lecture.subject
+        - else
+          %h3= lecture.subject
       - index + 1
+  = comments

@@ -8,8 +8,15 @@
     %link{ :rel => 'stylesheet', :href => '/css/style.css', :type => 'text/css'}
     /[if IE 6]
       %link{ :rel => 'stylesheet', :href => '/css/ie.css', :type => 'text/css'}
-    %script{ :type => "text/javascript", :src => "/script.js"}
   %body{ :id => @body_class }
+    - if notifications.any?
+      #notifications
+        %ol
+          - notifications.each do |notif|
+            %li
+              = notif.message
+              %small= notif.created_at.to_post
+        %a#notification-close{:href=>'#'} Ок, понял
     #wrapper
       #header
         %h1
@@ -30,12 +37,9 @@
             %a{ :href => '/about' } Курсы
             %a{ :href => '/about' } Сертификаты
             - if accessed?('course_add')
-              %a{ :href => '/course' } Добавить новый курс
+              %a{ :href => '/course' } Новый курс
       #container
         = yield
       #footer
         #copyright Copyright &copy; 2009 RPoint.
-        #links
-          %a{ :href => '/rss.xml' } RSS
-          %span= "|"
-          %a{ :href => '/atom.xml' } Atom
+  %script{ :type => "text/javascript", :src => "/script.js"}

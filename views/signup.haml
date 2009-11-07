@@ -10,6 +10,6 @@
         %input{ :type => 'text', :name => 'email' }
       %li
         %label{ :for => 'invite' } Ваш пропуск
-        %input{ :type => 'text', :name => 'invite' }
+        %input{ :type => 'text', :name => 'invite', :value => request.query_string }
       %li.submit
         %input{ :type => 'submit', :value => 'Пустите внутрь!'}
