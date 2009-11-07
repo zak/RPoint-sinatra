@@ -151,7 +151,7 @@ post '/signup' do
     invite.value -= 1
     invite.save!
     password = UserSystem.random_string(8)
-    user = invite.users.new(:login => params[:login], :email => params[:email], :password => UserSystem.encrypt(password))
+    user = invite.users.new(:login => params[:login], :email => params[:email], :password => UserSystem.encrypt(password), :created_at => Time.now)
     user.save!
     @message = 'Ваш пасс - ' + password + ' И поменять его вы не сможете ))'
   end
