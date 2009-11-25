@@ -413,10 +413,14 @@ end
 post '/:course/:lecture/fieldwork' do
   course = Course.first(:permalink => params[:course])
   lecture = course.lectures.first(:number => params[:lecture])
-  file_params = params[:attach]
-  output_file = "#{course.permalink}-#{@current_user.login}-#{file_params[:filename]}"
-  output_file = File.open('./public/files/'+output_file) { "#{course.permalink}-#{@current_user.login}-#{UserSystem.random_string(4)}-#{file_params[:filename]}" } rescue output_file
-  FileUtils.mv file_params[:tempfile].path, './public/files/'+output_file
+  unless params[:attach].nil?
+    file_params = params[:attach]
+    output_file = "#{course.permalink}-#{@current_user.login}-#{file_params[:filename]}"
+    output_file = File.open('./public/files/'+output_file) { "#{course.permalink}-#{@current_user.login}-#{UserSystem.random_string(4)}-#{file_params[:filename]}" } rescue output_file
+    FileUtils.mv file_params[:tempfile].path, './public/files/'+output_file
+  else
+    output_file = false
+  end
   lecture.fieldworks.new(:description => params[:description], :attach => output_file, :user => @current_user, :created_at => Time.now).save! ? notification('Уверен, что это стоит показывать?') : notification('Придется поработать еще')
   redirect '/' + params[:course] + '/' + params[:lecture]
 end
